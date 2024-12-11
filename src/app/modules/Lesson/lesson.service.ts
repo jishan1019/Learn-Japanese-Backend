@@ -1,18 +1,19 @@
 import httpStatus from "http-status";
 import QueryBuilder from "../../builder/QueryBuilder";
 import AppError from "../../errors/AppError";
-import { TTutorial } from "./lesson.interface";
-import { TutorialModel } from "./lesson.model";
+import { TLesson } from "./lesson.interface";
+import { LessonModel } from "./lesson.model";
+import { LessonSearchableField } from "./lesson.constant";
 
-const getAllTutorialFromDB = async (query: Record<string, unknown>) => {
+const getAllLessonFromDB = async (query: Record<string, unknown>) => {
   const tutorialQuery = new QueryBuilder(
-    TutorialModel.find().populate({
+    LessonModel.find().populate({
       path: "user",
       select: "email name",
     }),
     query
   )
-    .search([])
+    .search(LessonSearchableField)
     .filter()
     .sort()
     .paginate()
@@ -27,7 +28,7 @@ const getAllTutorialFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
-const getSingleTutorialFromDB = async (id: string) => {
+const getSingleLessonFromDB = async (id: string) => {
   const result = await TutorialModel.findById(id).populate({
     path: "user",
     select: "email name",
@@ -40,7 +41,7 @@ const getSingleTutorialFromDB = async (id: string) => {
   return result;
 };
 
-const createTutorialIntroDB = async (payload: TTutorial, userId: string) => {
+const createLessonIntroDB = async (payload: TLesson, userId: string) => {
   const result = await TutorialModel.create({
     ...payload,
     user: userId,
@@ -49,10 +50,7 @@ const createTutorialIntroDB = async (payload: TTutorial, userId: string) => {
   return result;
 };
 
-const updateTutorialIntroDb = async (
-  id: string,
-  payload: Partial<TTutorial>
-) => {
+const updateLessonIntroDb = async (id: string, payload: Partial<TLesson>) => {
   const tutorial = await TutorialModel.findById(id);
 
   if (!tutorial) {
@@ -66,7 +64,7 @@ const updateTutorialIntroDb = async (
   return result;
 };
 
-const deleteTutorialIntroDb = async (id: string) => {
+const deleteLessonIntroDb = async (id: string) => {
   const result = await TutorialModel.findByIdAndDelete(id);
 
   if (!result) {
@@ -76,10 +74,10 @@ const deleteTutorialIntroDb = async (id: string) => {
   return null;
 };
 
-export const TutorialService = {
-  getAllTutorialFromDB,
-  getSingleTutorialFromDB,
-  createTutorialIntroDB,
-  updateTutorialIntroDb,
-  deleteTutorialIntroDb,
+export const LessonService = {
+  getAllLessonFromDB,
+  getSingleLessonFromDB,
+  createLessonIntroDB,
+  updateLessonIntroDb,
+  deleteLessonIntroDb,
 };
