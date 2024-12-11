@@ -1,9 +1,9 @@
 import { Router } from "express";
 import validateRequest from "../../middlewares/validateRequest";
-import { LessonController } from "./vocabulary.controller";
+import { VocabularyController } from "./vocabulary.controller";
 import {
-  lessonValidationSchema,
-  updateLessonValidationSchema,
+  VocabularyValidationSchema,
+  updateVocabularyValidationSchema,
 } from "./vocabulary.validation";
 import auth from "../../middlewares/auth";
 import { USER_ROLE } from "../User/user.constant";
@@ -11,35 +11,35 @@ import { USER_ROLE } from "../User/user.constant";
 const router = Router();
 
 router.get(
-  "/all-lesson",
+  "/all-vocabulary",
   auth(USER_ROLE.admin, USER_ROLE.user),
-  LessonController.getAllLesson
+  VocabularyController.getAllVocabulary
 );
 
 router.get(
-  "/single-lesson/:_id",
+  "/single-vocabulary/:_id",
   auth(USER_ROLE.admin, USER_ROLE.user),
-  LessonController.getSingleLesson
+  VocabularyController.getSingleVocabulary
 );
 
 router.post(
-  "/create-lesson",
+  "/create-vocabulary",
   auth(USER_ROLE.admin),
   validateRequest(lessonValidationSchema),
-  LessonController.createLesson
+  VocabularyController.createVocabulary
 );
 
 router.patch(
-  "/update-lesson/:_id",
+  "/update-vocabulary/:_id",
   auth(USER_ROLE.admin),
   validateRequest(updateLessonValidationSchema),
-  LessonController.updateLesson
+  VocabularyController.updateVocabulary
 );
 
 router.delete(
-  "/delete-lesson/:_id",
+  "/delete-vocabulary/:_id",
   auth(USER_ROLE.admin),
-  LessonController.deleteLesson
+  VocabularyController.deleteVocabulary
 );
 
-export const LessonRoutes = router;
+export const VocabularyRoutes = router;
