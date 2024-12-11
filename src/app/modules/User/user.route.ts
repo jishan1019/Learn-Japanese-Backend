@@ -1,9 +1,10 @@
-import { Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 import { UserController } from "./user.controller";
 import validateRequest from "../../middlewares/validateRequest";
 import { USER_ROLE } from "./user.constant";
 import { updateUserValidationSchema } from "./user.validation";
 import auth from "../../middlewares/auth";
+import { multerUpload } from "../../config/multer.config";
 
 const router = Router();
 
@@ -18,6 +19,11 @@ router.get(
 router.patch(
   "/update-user/:_id",
   auth(USER_ROLE.admin, USER_ROLE.user),
+  multerUpload.single("file"),
+  (req: Request, res: Response, next: NextFunction) => {
+    req.body = JSON.parse(req.body.data);
+    next();
+  },
   validateRequest(updateUserValidationSchema),
   UserController.updateUser
 );

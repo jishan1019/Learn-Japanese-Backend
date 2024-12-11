@@ -1,13 +1,12 @@
 import { Model } from "mongoose";
-
-export type TRole = "user" | "admin";
+import { TUserRole } from "./user.constant";
 
 export type TUser = {
   name: string;
   email: string;
-  password: string;
   photo: string;
-  role: TRole;
+  password: string;
+  role: TUserRole;
   isDeleted?: boolean;
 };
 

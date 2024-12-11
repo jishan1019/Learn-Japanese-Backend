@@ -30,7 +30,7 @@ const getSingleUser = catchAsync(async (req, res) => {
 
 const updateUser = catchAsync(async (req, res) => {
   const { _id } = req.params;
-  const result = await UserService.updateUserIntroDb(_id, req.body);
+  const result = await UserService.updateUserIntroDb(_id, req.body, req.file);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

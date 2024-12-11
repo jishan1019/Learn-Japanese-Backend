@@ -38,14 +38,14 @@ const loginUserFromDb = async (payload: TAuth) => {
 
   const accessToken = createToken(
     jwtPayload,
-    config.jwt_access_secret as string,
-    config.jwt_access_expire_time as string
+    config.jwt.jwt_access_secret as string,
+    config.jwt.jwt_access_expire_time as string
   );
 
   const refreshToken = createToken(
     jwtPayload,
-    config.jwt_refresh_secret as string,
-    config.jwt_refresh_expire_time as string
+    config.jwt.jwt_refresh_secret as string,
+    config.jwt.jwt_refresh_expire_time as string
   );
 
   return {
@@ -54,20 +54,30 @@ const loginUserFromDb = async (payload: TAuth) => {
   };
 };
 
-const createUserIntroDb = async (payload: TUser) => {
-  const isUserExist = await UserModel.findOne({ email: payload?.email });
-  if (isUserExist) {
-    throw new AppError(httpStatus.BAD_REQUEST, "User already exists.");
+const createUserIntroDb = async (payload: TUser, file: any) => {
+  if (!file) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Profile img is required");
   }
 
-  const result = await UserModel.create(payload);
+  const isUserExist = await UserModel.findOne({ email: payload?.email });
+  if (isUserExist) {
+    throw new AppError(httpStatus.BAD_REQUEST, "User already exists");
+  }
+
+  const newPayload = {
+    ...payload,
+    photo: file.path,
+  };
+
+  const result = await UserModel.create(newPayload);
+
   return result;
 };
 
 const generateNewRefreshToken = async (token: string) => {
   const decoded = jwt.verify(
     token,
-    config.jwt_refresh_secret as string
+    config.jwt.jwt_refresh_secret as string
   ) as JwtPayload;
 
   const { userId } = decoded;
@@ -85,8 +95,8 @@ const generateNewRefreshToken = async (token: string) => {
 
   const accessToken = createToken(
     jwtPayload,
-    config.jwt_access_secret as string,
-    config.jwt_access_expire_time as string
+    config.jwt.jwt_access_secret as string,
+    config.jwt.jwt_access_expire_time as string
   );
 
   return {

@@ -22,7 +22,7 @@ const loginUser = catchAsync(async (req, res) => {
 });
 
 const createUser = catchAsync(async (req, res) => {
-  const result = await AuthService.createUserIntroDb(req.body);
+  const result = await AuthService.createUserIntroDb(req.body, req.file);
 
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
