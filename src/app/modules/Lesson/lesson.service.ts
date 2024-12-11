@@ -4,6 +4,8 @@ import AppError from "../../errors/AppError";
 import { TLesson } from "./lesson.interface";
 import { LessonModel } from "./lesson.model";
 import { LessonSearchableField } from "./lesson.constant";
+import { VocabularyModel } from "../Vocabulary/vocabulary.model";
+import mongoose from "mongoose";
 
 const getAllLessonFromDB = async (query: Record<string, unknown>) => {
   const tutorialQuery = new QueryBuilder(
@@ -102,13 +104,39 @@ const updateLessonIntroDb = async (id: string, payload: Partial<TLesson>) => {
 };
 
 const deleteLessonIntroDb = async (id: string) => {
-  const result = await LessonModel.findByIdAndDelete(id);
+  const session = await mongoose.startSession();
+  session.startTransaction();
 
-  if (!result) {
-    throw new AppError(httpStatus.NOT_FOUND, "Lesson not found");
+  try {
+    const lesson = await LessonModel.findOne({ _id: id }).session(session);
+    if (!lesson) {
+      throw new AppError(httpStatus.NOT_FOUND, "Lesson not found");
+    }
+
+    const lessonResult = await LessonModel.deleteOne({ _id: id }).session(
+      session
+    );
+    if (!lessonResult.deletedCount) {
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete lesson");
+    }
+
+    const vocabularyResult = await VocabularyModel.deleteMany({
+      lesson: id,
+    }).session(session);
+    if (!vocabularyResult.deletedCount) {
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete vocabulary");
+    }
+
+    await session.commitTransaction();
+    session.endSession();
+
+    return null;
+  } catch (error: any) {
+    await session.abortTransaction();
+    session.endSession();
+
+    throw new AppError(httpStatus.INTERNAL_SERVER_ERROR, error.message);
   }
-
-  return null;
 };
 
 export const LessonService = {

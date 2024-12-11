@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { TVocabulary } from "./vocabulary.interface";
+import { LessonModel } from "../Lesson/lesson.model";
 
 const vocabularySchema = new Schema<TVocabulary>(
   {
@@ -43,3 +44,17 @@ export const VocabularyModel = model<TVocabulary>(
   "Vocabulary",
   vocabularySchema
 );
+
+VocabularyModel.schema.post("save", async function () {
+  await LessonModel.updateOne(
+    { _id: this.lesson },
+    { $inc: { vocabulary: 1 } }
+  );
+});
+
+VocabularyModel.schema.post("deleteOne", async function () {
+  await LessonModel.updateOne(
+    { _id: (this as any).lesson },
+    { $inc: { vocabulary: -1 } }
+  );
+});
