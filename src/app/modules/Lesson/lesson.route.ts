@@ -42,4 +42,4 @@ router.delete(
   LessonController.deleteLesson
 );
 
-export const TutorialRoutes = router;
+export const LessonRoutes = router;

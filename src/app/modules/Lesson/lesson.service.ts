@@ -29,35 +29,72 @@ const getAllLessonFromDB = async (query: Record<string, unknown>) => {
 };
 
 const getSingleLessonFromDB = async (id: string) => {
-  const result = await TutorialModel.findById(id).populate({
+  const result = await LessonModel.findById(id).populate({
     path: "user",
     select: "email name",
   });
 
   if (!result) {
-    throw new AppError(httpStatus.NOT_FOUND, "Tutorial not found");
+    throw new AppError(httpStatus.NOT_FOUND, "Lesson not found");
   }
 
   return result;
 };
 
 const createLessonIntroDB = async (payload: TLesson, userId: string) => {
-  const result = await TutorialModel.create({
-    ...payload,
-    user: userId,
+  const lowerCaseName = payload.name.toLowerCase();
+
+  const isExistLesson = await LessonModel.findOne({
+    $or: [{ name: lowerCaseName }, { number: payload.number }],
   });
+
+  if (isExistLesson) {
+    throw new AppError(httpStatus.NOT_FOUND, "This lesson already exists");
+  }
+
+  const newPayload = {
+    user: userId,
+    name: lowerCaseName,
+    number: payload.number,
+  };
+
+  const result = await LessonModel.create(newPayload);
 
   return result;
 };
 
 const updateLessonIntroDb = async (id: string, payload: Partial<TLesson>) => {
-  const tutorial = await TutorialModel.findById(id);
+  const lesson = await LessonModel.findById(id);
 
-  if (!tutorial) {
-    throw new AppError(httpStatus.NOT_FOUND, "Tutorial not found");
+  if (!lesson) {
+    throw new AppError(httpStatus.NOT_FOUND, "Lesson not found");
   }
 
-  const result = await TutorialModel.findByIdAndUpdate(id, payload, {
+  if (payload.name) {
+    const lowerCaseName = payload.name.toLowerCase();
+
+    const isExistLesson = await LessonModel.findOne({
+      _id: { $ne: id },
+      name: lowerCaseName,
+    });
+
+    if (isExistLesson) {
+      throw new AppError(httpStatus.NOT_FOUND, "This lesson already exists");
+    }
+  }
+
+  if (payload.number) {
+    const isExistLesson = await LessonModel.findOne({
+      _id: { $ne: id },
+      number: payload.number,
+    });
+
+    if (isExistLesson) {
+      throw new AppError(httpStatus.NOT_FOUND, "This lesson no already exists");
+    }
+  }
+
+  const result = await LessonModel.findByIdAndUpdate(id, payload, {
     new: true,
   });
 
@@ -65,10 +102,10 @@ const updateLessonIntroDb = async (id: string, payload: Partial<TLesson>) => {
 };
 
 const deleteLessonIntroDb = async (id: string) => {
-  const result = await TutorialModel.findByIdAndDelete(id);
+  const result = await LessonModel.findByIdAndDelete(id);
 
   if (!result) {
-    throw new AppError(httpStatus.NOT_FOUND, "Tutorial not found");
+    throw new AppError(httpStatus.NOT_FOUND, "Lesson not found");
   }
 
   return null;

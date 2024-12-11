@@ -4,4 +4,5 @@ export type TLesson = {
   user: Types.ObjectId;
   name: string;
   number: number;
+  vocabulary?: number;
 };

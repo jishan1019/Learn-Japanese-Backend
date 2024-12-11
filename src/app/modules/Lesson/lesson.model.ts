@@ -10,11 +10,19 @@ const lessonSchema = new Schema<TLesson>(
     },
     name: {
       type: String,
+      trim: true,
       required: [true, "lesson name is required"],
+      unique: true,
     },
     number: {
       type: Number,
+      trim: true,
       required: [true, "lesson number is required"],
+      unique: true,
+    },
+    vocabulary: {
+      type: Number,
+      default: 0,
     },
   },
   {
