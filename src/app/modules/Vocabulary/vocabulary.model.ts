@@ -40,21 +40,14 @@ const vocabularySchema = new Schema<TVocabulary>(
   }
 );
 
-export const VocabularyModel = model<TVocabulary>(
-  "Vocabulary",
-  vocabularySchema
-);
-
-VocabularyModel.schema.post("save", async function () {
+vocabularySchema.post("save", async function () {
   await LessonModel.updateOne(
     { _id: this.lesson },
     { $inc: { vocabulary: 1 } }
   );
 });
 
-VocabularyModel.schema.post("deleteOne", async function () {
-  await LessonModel.updateOne(
-    { _id: (this as any).lesson },
-    { $inc: { vocabulary: -1 } }
-  );
-});
+export const VocabularyModel = model<TVocabulary>(
+  "Vocabulary",
+  vocabularySchema
+);

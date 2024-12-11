@@ -116,14 +116,15 @@ const deleteLessonIntroDb = async (id: string) => {
     const lessonResult = await LessonModel.deleteOne({ _id: id }).session(
       session
     );
-    if (!lessonResult.deletedCount) {
+    if (!lessonResult) {
       throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete lesson");
     }
 
     const vocabularyResult = await VocabularyModel.deleteMany({
       lesson: id,
     }).session(session);
-    if (!vocabularyResult.deletedCount) {
+
+    if (!vocabularyResult) {
       throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete vocabulary");
     }
 
