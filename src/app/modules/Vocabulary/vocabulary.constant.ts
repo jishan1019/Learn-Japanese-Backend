@@ -1,1 +1,1 @@
-export const VocabularySearchableField = ["name"];
+export const VocabularySearchableField = ["word", "meaning", "pronunciation"];

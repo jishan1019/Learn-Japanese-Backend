@@ -8,7 +8,7 @@ import { VocabularyModel } from "../Vocabulary/vocabulary.model";
 import mongoose from "mongoose";
 
 const getAllLessonFromDB = async (query: Record<string, unknown>) => {
-  const tutorialQuery = new QueryBuilder(
+  const lessonQuery = new QueryBuilder(
     LessonModel.find().populate({
       path: "user",
       select: "email name",
@@ -21,8 +21,8 @@ const getAllLessonFromDB = async (query: Record<string, unknown>) => {
     .paginate()
     .fields();
 
-  const result = await tutorialQuery.modelQuery;
-  const meta = await tutorialQuery.countTotal();
+  const result = await lessonQuery.modelQuery;
+  const meta = await lessonQuery.countTotal();
 
   return {
     meta,

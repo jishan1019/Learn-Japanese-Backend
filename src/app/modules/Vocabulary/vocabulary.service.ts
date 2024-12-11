@@ -1,26 +1,31 @@
 import httpStatus from "http-status";
 import QueryBuilder from "../../builder/QueryBuilder";
 import AppError from "../../errors/AppError";
-import { TLesson } from "./vocabulary.interface";
-import { LessonModel } from "./vocabulary.model";
-import { LessonSearchableField } from "./vocabulary.constant";
+import { TVocabulary } from "./vocabulary.interface";
+import { VocabularyModel } from "./vocabulary.model";
+import { VocabularySearchableField } from "./vocabulary.constant";
 
-const getAllLessonFromDB = async (query: Record<string, unknown>) => {
-  const tutorialQuery = new QueryBuilder(
-    LessonModel.find().populate({
-      path: "user",
-      select: "email name",
-    }),
+const getAllVocabularyFromDB = async (query: Record<string, unknown>) => {
+  const vocabularyQuery = new QueryBuilder(
+    VocabularyModel.find()
+      .populate({
+        path: "user",
+        select: "email name",
+      })
+      .populate({
+        path: "lesson",
+        select: "name number",
+      }),
     query
   )
-    .search(LessonSearchableField)
+    .search(VocabularySearchableField)
     .filter()
     .sort()
     .paginate()
     .fields();
 
-  const result = await tutorialQuery.modelQuery;
-  const meta = await tutorialQuery.countTotal();
+  const result = await vocabularyQuery.modelQuery;
+  const meta = await vocabularyQuery.countTotal();
 
   return {
     meta,
@@ -28,8 +33,8 @@ const getAllLessonFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
-const getSingleLessonFromDB = async (id: string) => {
-  const result = await LessonModel.findById(id).populate({
+const getSingleVocabularyFromDB = async (id: string) => {
+  const result = await VocabularyModel.findById(id).populate({
     path: "user",
     select: "email name",
   });
@@ -41,80 +46,57 @@ const getSingleLessonFromDB = async (id: string) => {
   return result;
 };
 
-const createLessonIntroDB = async (payload: TLesson, userId: string) => {
-  const lowerCaseName = payload.name.toLowerCase();
+const createVocabularyIntroDB = async (
+  payload: TVocabulary,
+  userId: string
+) => {
+  const isExistLesson = await VocabularyModel.findOne({ _id: payload.lesson });
 
-  const isExistLesson = await LessonModel.findOne({
-    $or: [{ name: lowerCaseName }, { number: payload.number }],
-  });
-
-  if (isExistLesson) {
-    throw new AppError(httpStatus.NOT_FOUND, "This lesson already exists");
+  if (!isExistLesson) {
+    throw new AppError(httpStatus.NOT_FOUND, "Lesson not found");
   }
 
   const newPayload = {
+    ...payload,
     user: userId,
-    name: lowerCaseName,
-    number: payload.number,
   };
 
-  const result = await LessonModel.create(newPayload);
+  const result = await VocabularyModel.create(newPayload);
 
   return result;
 };
 
-const updateLessonIntroDb = async (id: string, payload: Partial<TLesson>) => {
-  const lesson = await LessonModel.findById(id);
+const updateVocabularyIntroDb = async (
+  id: string,
+  payload: Partial<TVocabulary>
+) => {
+  const lesson = await VocabularyModel.findById(id);
 
   if (!lesson) {
     throw new AppError(httpStatus.NOT_FOUND, "Lesson not found");
   }
 
-  if (payload.name) {
-    const lowerCaseName = payload.name.toLowerCase();
-
-    const isExistLesson = await LessonModel.findOne({
-      _id: { $ne: id },
-      name: lowerCaseName,
-    });
-
-    if (isExistLesson) {
-      throw new AppError(httpStatus.NOT_FOUND, "This lesson already exists");
-    }
-  }
-
-  if (payload.number) {
-    const isExistLesson = await LessonModel.findOne({
-      _id: { $ne: id },
-      number: payload.number,
-    });
-
-    if (isExistLesson) {
-      throw new AppError(httpStatus.NOT_FOUND, "This lesson no already exists");
-    }
-  }
-
-  const result = await LessonModel.findByIdAndUpdate(id, payload, {
+  const result = await VocabularyModel.findByIdAndUpdate(id, payload, {
     new: true,
   });
 
   return result;
 };
 
-const deleteLessonIntroDb = async (id: string) => {
-  const result = await LessonModel.findByIdAndDelete(id);
+const deleteVocabularyIntroDb = async (id: string) => {
+  const result = await VocabularyModel.findByIdAndDelete(id);
 
   if (!result) {
-    throw new AppError(httpStatus.NOT_FOUND, "Lesson not found");
+    throw new AppError(httpStatus.NOT_FOUND, "Vocabulary not found");
   }
 
   return null;
 };
 
-export const LessonService = {
-  getAllLessonFromDB,
-  getSingleLessonFromDB,
-  createLessonIntroDB,
-  updateLessonIntroDb,
-  deleteLessonIntroDb,
+export const VocabularyService = {
+  getAllVocabularyFromDB,
+  getSingleVocabularyFromDB,
+  createVocabularyIntroDB,
+  updateVocabularyIntroDb,
+  deleteVocabularyIntroDb,
 };
