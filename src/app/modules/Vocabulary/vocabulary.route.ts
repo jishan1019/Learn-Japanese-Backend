@@ -1,12 +1,13 @@
 import { Router } from "express";
 import validateRequest from "../../middlewares/validateRequest";
 import { VocabularyController } from "./vocabulary.controller";
-import {
-  VocabularyValidationSchema,
-  updateVocabularyValidationSchema,
-} from "./vocabulary.validation";
+
 import auth from "../../middlewares/auth";
 import { USER_ROLE } from "../User/user.constant";
+import {
+  updateVocabularyValidationSchema,
+  vocabularyValidationSchema,
+} from "./vocabulary.validation";
 
 const router = Router();
 
@@ -25,14 +26,14 @@ router.get(
 router.post(
   "/create-vocabulary",
   auth(USER_ROLE.admin),
-  validateRequest(lessonValidationSchema),
+  validateRequest(vocabularyValidationSchema),
   VocabularyController.createVocabulary
 );
 
 router.patch(
   "/update-vocabulary/:_id",
   auth(USER_ROLE.admin),
-  validateRequest(updateLessonValidationSchema),
+  validateRequest(updateVocabularyValidationSchema),
   VocabularyController.updateVocabulary
 );
 
