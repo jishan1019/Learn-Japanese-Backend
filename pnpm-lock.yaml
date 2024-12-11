@@ -14,6 +14,9 @@ importers:
       argon2:
         specifier: ^0.40.3
         version: 0.40.3
+      cloudinary:
+        specifier: ^2.5.1
+        version: 2.5.1
       cookie-parser:
         specifier: ^1.4.6
         version: 1.4.6
@@ -40,7 +43,7 @@ importers:
         version: 1.4.5-lts.1
       multer-storage-cloudinary:
         specifier: ^4.0.0
-        version: 4.0.0(cloudinary@1.41.3)
+        version: 4.0.0(cloudinary@2.5.1)
       nodemailer:
         specifier: ^6.9.14
         version: 6.9.14
@@ -419,14 +422,9 @@ packages:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
     engines: {node: '>= 8.10.0'}
 
-  cloudinary-core@2.13.1:
-    resolution: {integrity: sha512-z53GPNWnvU0Zi+ns8CIVbZBfj7ps/++zDvwIyiFuq5p1MoK+KUCg0k5mBceDDHTnx1gHmHUd9aohS+gDxPNt6w==}
-    peerDependencies:
-      lodash: '>=4.0'
-
-  cloudinary@1.41.3:
-    resolution: {integrity: sha512-4o84y+E7dbif3lMns+p3UW6w6hLHEifbX/7zBJvaih1E9QNMZITENQ14GPYJC4JmhygYXsuuBb9bRA3xWEoOfg==}
-    engines: {node: '>=0.6'}
+  cloudinary@2.5.1:
+    resolution: {integrity: sha512-CNg6uU53Hl4FEVynkTGpt5bQEAQWDHi3H+Sm62FzKf5uQHipSN2v7qVqS8GRVqeb0T1WNV+22+75DOJeRXYeSQ==}
+    engines: {node: '>=9'}
 
   color-convert@2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
@@ -464,9 +462,6 @@ packages:
   cookie@0.6.0:
     resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
     engines: {node: '>= 0.6'}
-
-  core-js@3.39.0:
-    resolution: {integrity: sha512-raM0ew0/jJUqkJ0E6e8UDtl+y/7ktFivgWvqw8dNSQeNWoSDLvQ1H/RN3aPXB9tBd4/FhyR4RDPGhsNIMsAn7g==}
 
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -1725,14 +1720,8 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  cloudinary-core@2.13.1(lodash@4.17.21):
+  cloudinary@2.5.1:
     dependencies:
-      lodash: 4.17.21
-
-  cloudinary@1.41.3:
-    dependencies:
-      cloudinary-core: 2.13.1(lodash@4.17.21)
-      core-js: 3.39.0
       lodash: 4.17.21
       q: 1.5.1
 
@@ -1767,8 +1756,6 @@ snapshots:
   cookie@0.4.1: {}
 
   cookie@0.6.0: {}
-
-  core-js@3.39.0: {}
 
   core-util-is@1.0.3: {}
 
@@ -2270,9 +2257,9 @@ snapshots:
 
   ms@2.1.3: {}
 
-  multer-storage-cloudinary@4.0.0(cloudinary@1.41.3):
+  multer-storage-cloudinary@4.0.0(cloudinary@2.5.1):
     dependencies:
-      cloudinary: 1.41.3
+      cloudinary: 2.5.1
 
   multer@1.4.5-lts.1:
     dependencies:
