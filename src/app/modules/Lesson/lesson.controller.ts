@@ -1,74 +1,73 @@
 import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
-import { TutorialService } from "./lesson.service";
+import { LessonService } from "./lesson.service";
 
-const getAllTutorial = catchAsync(async (req, res) => {
+const getAllLesson = catchAsync(async (req, res) => {
   const query = req.query;
 
-  const result = await TutorialService.getAllTutorialFromDB(query);
+  const result = await LessonService.getAllLessonFromDB(query);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "All Tutorial is retrieved successfully",
+    message: "All Lesson is retrieved successfully",
     data: result,
   });
 });
 
-const getSingleTutorial = catchAsync(async (req, res) => {
+const getSingleLesson = catchAsync(async (req, res) => {
   const { _id } = req.params;
-  const result = await TutorialService.getSingleTutorialFromDB(_id);
+  const result = await LessonService.getSingleLessonFromDB(_id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Tutorial is retrieved successfully",
+    message: "Lesson is retrieved successfully",
     data: result,
   });
 });
 
-const createTutorial = catchAsync(async (req, res) => {
+const createLesson = catchAsync(async (req, res) => {
   const { userId } = req.user;
-
-  const result = await TutorialService.createTutorialIntroDB(req.body, userId);
+  const result = await LessonService.createLessonIntroDB(req.body, userId);
 
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
-    message: "Tutorial is create successfully",
+    message: "Lesson is create successfully",
     data: result,
   });
 });
 
-const updateTutorial = catchAsync(async (req, res) => {
+const updateLesson = catchAsync(async (req, res) => {
   const { _id } = req.params;
-  const result = await TutorialService.updateTutorialIntroDb(_id, req.body);
+  const result = await LessonService.updateLessonIntroDb(_id, req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Tutorial is update successfully",
+    message: "Lesson is update successfully",
     data: result,
   });
 });
 
-const deleteTutorial = catchAsync(async (req, res) => {
+const deleteLesson = catchAsync(async (req, res) => {
   const { _id } = req.params;
-  const result = await TutorialService.deleteTutorialIntroDb(_id);
+  const result = await LessonService.deleteLessonIntroDb(_id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Tutorial is deleted successfully",
+    message: "Lesson is deleted successfully",
     data: result,
   });
 });
 
-export const TutorialController = {
-  getAllTutorial,
-  getSingleTutorial,
-  createTutorial,
-  updateTutorial,
-  deleteTutorial,
+export const LessonController = {
+  getAllLesson,
+  getSingleLesson,
+  createLesson,
+  updateLesson,
+  deleteLesson,
 };
