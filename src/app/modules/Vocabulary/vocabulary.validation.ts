@@ -1,11 +1,14 @@
 import { z } from "zod";
 
-export const lessonValidationSchema = z.object({
+export const vocabularyValidationSchema = z.object({
   body: z.object({
-    name: z.string({ required_error: "lesson name is required." }),
-    number: z.number({ required_error: "lesson number is required." }),
+    word: z.string({ required_error: "word is required." }),
+    meaning: z.string({ required_error: "meaning is required." }),
+    pronunciation: z.string({ required_error: "pronunciation is required." }),
+    whenToSay: z.string({ required_error: "whenToSay is required." }),
+    lesson: z.string({ required_error: "lesson is required." }),
   }),
 });
 
-export const updateLessonValidationSchema =
-  lessonValidationSchema.shape.body.partial();
+export const updateVocabularyValidationSchema =
+  vocabularyValidationSchema.shape.body.partial();
