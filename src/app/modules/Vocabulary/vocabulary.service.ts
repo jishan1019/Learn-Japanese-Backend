@@ -35,6 +35,46 @@ const getAllVocabularyFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
+const getVocabularyByLessonNoFromDB = async (
+  query: Record<string, unknown>
+) => {
+  const { lessonNo } = query;
+
+  const lesson = await LessonModel.findOne({ number: lessonNo }).select("_id");
+
+  if (!lesson) {
+    throw new AppError(httpStatus.NOT_FOUND, "Lesson not found");
+  }
+
+  delete query?.lessonNo;
+
+  const vocabularyQuery = new QueryBuilder(
+    VocabularyModel.find({ lesson: lesson?._id })
+      .populate({
+        path: "user",
+        select: "email name",
+      })
+      .populate({
+        path: "lesson",
+        select: "name number",
+      }),
+    query
+  )
+    .search(VocabularySearchableField)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await vocabularyQuery.modelQuery;
+  const meta = await vocabularyQuery.countTotal();
+
+  return {
+    meta,
+    result,
+  };
+};
+
 const getSingleVocabularyFromDB = async (id: string) => {
   const result = await VocabularyModel.findById(id).populate({
     path: "user",
@@ -184,4 +224,5 @@ export const VocabularyService = {
   createVocabularyIntroDB,
   updateVocabularyIntroDb,
   deleteVocabularyIntroDb,
+  getVocabularyByLessonNoFromDB,
 };

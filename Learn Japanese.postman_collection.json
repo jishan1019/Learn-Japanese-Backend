@@ -224,9 +224,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{prod_url}}/auth/sign-in",
+							"raw": "{{local_url}}/auth/sign-in",
 							"host": [
-								"{{prod_url}}"
+								"{{local_url}}"
 							],
 							"path": [
 								"auth",
@@ -329,9 +329,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{local_url}}/tutorial/all-tutorial?page=1&limit=10",
+							"raw": "{{prod_url}}/tutorial/all-tutorial?page=1&limit=10",
 							"host": [
-								"{{local_url}}"
+								"{{prod_url}}"
 							],
 							"path": [
 								"tutorial",
@@ -558,9 +558,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{local_url}}/lesson/all-lesson?page=1&limit=10",
+							"raw": "{{prod_url}}/lesson/all-lesson?page=1&limit=10",
 							"host": [
-								"{{local_url}}"
+								"{{prod_url}}"
 							],
 							"path": [
 								"lesson",
@@ -644,7 +644,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\" : \"Master Learn\",\n    \"number\" : 5\n}",
+							"raw": "{\n    \"name\" : \"Cultural Expressions\",\n    \"number\" : 8\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -652,9 +652,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{local_url}}/lesson/create-lesson",
+							"raw": "{{prod_url}}/lesson/create-lesson",
 							"host": [
-								"{{local_url}}"
+								"{{prod_url}}"
 							],
 							"path": [
 								"lesson",
@@ -803,6 +803,60 @@
 								{
 									"key": "limit",
 									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get  Vocabulary By Lesson No",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"Every Morning Japanese Conversation Practice To Start The Day\",\n    \"videoUrl\" : \"https://www.youtube.com/watch?v=hVOvyR3fSrU\",\n    \"description\" : \"Easy way to learn and talk Japanese language\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/vocabulary/get-vocabulary-by-lesson-no?page=1&limit=10&lessonNo=2",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"vocabulary",
+								"get-vocabulary-by-lesson-no"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "lessonNo",
+									"value": "2"
 								}
 							]
 						}
@@ -1044,7 +1098,7 @@
 	"variable": [
 		{
 			"key": "local_url",
-			"value": "http://localhost:4000/api/v1",
+			"value": "https://word-orbit-backend.vercel.app/api/v1",
 			"type": "string"
 		},
 		{

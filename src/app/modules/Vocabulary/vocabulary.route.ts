@@ -18,6 +18,12 @@ router.get(
 );
 
 router.get(
+  "/get-vocabulary-by-lesson-no",
+  auth(USER_ROLE.admin, USER_ROLE.user),
+  VocabularyController.getVocabularyByLessonNo
+);
+
+router.get(
   "/single-vocabulary/:_id",
   auth(USER_ROLE.admin, USER_ROLE.user),
   VocabularyController.getSingleVocabulary

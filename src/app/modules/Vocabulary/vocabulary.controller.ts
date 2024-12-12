@@ -16,6 +16,19 @@ const getAllVocabulary = catchAsync(async (req, res) => {
   });
 });
 
+const getVocabularyByLessonNo = catchAsync(async (req, res) => {
+  const query = req.query;
+
+  const result = await VocabularyService.getVocabularyByLessonNoFromDB(query);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Vocabulary is retrieved successfully",
+    data: result,
+  });
+});
+
 const getSingleVocabulary = catchAsync(async (req, res) => {
   const { _id } = req.params;
   const result = await VocabularyService.getSingleVocabularyFromDB(_id);
@@ -73,4 +86,5 @@ export const VocabularyController = {
   createVocabulary,
   updateVocabulary,
   deleteVocabulary,
+  getVocabularyByLessonNo,
 };
