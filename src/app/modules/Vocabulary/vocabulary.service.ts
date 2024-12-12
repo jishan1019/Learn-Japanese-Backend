@@ -72,17 +72,67 @@ const updateVocabularyIntroDb = async (
   id: string,
   payload: Partial<TVocabulary>
 ) => {
-  const lesson = await VocabularyModel.findById(id);
+  const session = await mongoose.startSession();
+  session.startTransaction();
 
-  if (!lesson) {
-    throw new AppError(httpStatus.NOT_FOUND, "Lesson not found");
+  try {
+    const vocabulary = await VocabularyModel.findById(id).session(session);
+
+    if (!vocabulary) {
+      throw new AppError(httpStatus.NOT_FOUND, "vocabulary not found");
+    }
+
+    if (payload.lesson) {
+      const lesson = await LessonModel.findById(payload.lesson).session(
+        session
+      );
+
+      if (!lesson) {
+        throw new AppError(httpStatus.NOT_FOUND, "lesson not found");
+      }
+
+      const lessonUpdateOld = await LessonModel.updateOne(
+        { _id: vocabulary.lesson },
+        { $inc: { vocabulary: -1 } },
+        { new: true, session }
+      );
+
+      if (!lessonUpdateOld) {
+        throw new AppError(
+          httpStatus.BAD_REQUEST,
+          "Failed to update vocabulary count in old lesson"
+        );
+      }
+
+      const lessonUpdateNew = await LessonModel.updateOne(
+        { _id: payload.lesson },
+        { $inc: { vocabulary: 1 } },
+        { new: true, session }
+      );
+
+      if (!lessonUpdateNew) {
+        throw new AppError(
+          httpStatus.BAD_REQUEST,
+          "Failed to update vocabulary count in new lesson"
+        );
+      }
+    }
+
+    const result = await VocabularyModel.updateOne({ _id: id }, payload, {
+      new: true,
+      session,
+    });
+
+    await session.commitTransaction();
+    session.endSession();
+
+    return result;
+  } catch (error: any) {
+    await session.abortTransaction();
+    session.endSession();
+
+    throw new AppError(httpStatus.INTERNAL_SERVER_ERROR, error.message);
   }
-
-  const result = await VocabularyModel.findByIdAndUpdate(id, payload, {
-    new: true,
-  });
-
-  return result;
 };
 
 const deleteVocabularyIntroDb = async (id: string) => {
