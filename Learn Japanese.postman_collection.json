@@ -1,0 +1,1028 @@
+{
+	"info": {
+		"_postman_id": "0afdcdca-3505-4921-bfe7-000689336a40",
+		"name": "Learn Japanese",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36992594"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get Me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/users/me",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/users/all-user?page=1&limit=10",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"users",
+								"all-user"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/users/single-user/:_id",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"users",
+								"single-user",
+								":_id"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "675334cbdcf5f09862ea6ac3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"value": "{\n  \"name\": \"User\",\n  \"role\": \"user\"\n}\n",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/jishan/Documents/CDrive/VsCode/native/ui-design/assets/images/pro.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local_url}}/users/update-user/:_id",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"users",
+								"update-user",
+								":_id"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "6759d258e7ea5be1cc781bd9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/users/delete-user/:_id",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"users",
+								"delete-user",
+								":_id"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "675334cbdcf5f09862ea6ac3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"admin@gmail.com\",\n    \"password\" : \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/auth/sign-in",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"auth",
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"value": "{\n  \"name\": \"User\",\n  \"email\": \"admin@gmail.com\",\n  \"password\": \"1234\",\n  \"role\": \"user\"\n}\n",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/jishan/Documents/CDrive/VsCode/native/ui-design/assets/images/pro.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local_url}}/auth/sign-up",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"auth",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/auth/refresh-token",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tutorial",
+			"item": [
+				{
+					"name": "Get All Tutorial",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"Every Morning Japanese Conversation Practice To Start The Day\",\n    \"videoUrl\" : \"https://www.youtube.com/watch?v=hVOvyR3fSrU\",\n    \"description\" : \"Easy way to learn and talk Japanese language\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/tutorial/all-tutorial?page=1&limit=10",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"tutorial",
+								"all-tutorial"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Tutorial",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"Every Morning Japanese Conversation Practice To Start The Day\",\n    \"videoUrl\" : \"https://www.youtube.com/watch?v=hVOvyR3fSrU\",\n    \"description\" : \"Easy way to learn and talk Japanese language\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/tutorial/single-tutorial/:_id",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"tutorial",
+								"single-tutorial",
+								":_id"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "6759ef3f87748f99ae53e7d6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tutorial",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"Every Morning Japanese Conversation Practice To Start The Day\",\n    \"videoUrl\" : \"https://www.youtube.com/watch?v=hVOvyR3fSrU\",\n    \"description\" : \"Easy way to learn and talk Japanese language\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/tutorial/create-tutorial",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"tutorial",
+								"create-tutorial"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tutorial",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"22 Japanese Words for Everyday Life\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/tutorial//update-tutorial/:_id",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"tutorial",
+								"",
+								"update-tutorial",
+								":_id"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "6759ef3f87748f99ae53e7d6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tutorial",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/tutorial//delete-tutorial/:_id",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"tutorial",
+								"",
+								"delete-tutorial",
+								":_id"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "6759ef3f87748f99ae53e7d6"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lesson",
+			"item": [
+				{
+					"name": "Get All Lesson",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"Every Morning Japanese Conversation Practice To Start The Day\",\n    \"videoUrl\" : \"https://www.youtube.com/watch?v=hVOvyR3fSrU\",\n    \"description\" : \"Easy way to learn and talk Japanese language\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/lesson/all-lesson?page=1&limit=10",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"lesson",
+								"all-lesson"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Lesson",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"Every Morning Japanese Conversation Practice To Start The Day\",\n    \"videoUrl\" : \"https://www.youtube.com/watch?v=hVOvyR3fSrU\",\n    \"description\" : \"Easy way to learn and talk Japanese language\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/lesson/single-lesson/:_id",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"lesson",
+								"single-lesson",
+								":_id"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "675a0c19cd8879bde097d062"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Lesson",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Master Learn\",\n    \"number\" : 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/lesson/create-lesson",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"lesson",
+								"create-lesson"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Lesson",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Basic Greetings\",\n    \"number\" : 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/lesson//update-lesson/:_id",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"lesson",
+								"",
+								"update-lesson",
+								":_id"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "675a0c19cd8879bde097d062"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Lesson",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/lesson//delete-lesson/:_id",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"lesson",
+								"",
+								"delete-lesson",
+								":_id"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "675a1bfbde2d99dae5413b1d"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vocabulary",
+			"item": [
+				{
+					"name": "Get All Vocabulary",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"Every Morning Japanese Conversation Practice To Start The Day\",\n    \"videoUrl\" : \"https://www.youtube.com/watch?v=hVOvyR3fSrU\",\n    \"description\" : \"Easy way to learn and talk Japanese language\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/vocabulary/all-vocabulary?page=1&limit=10",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"vocabulary",
+								"all-vocabulary"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Vocabulary",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"Every Morning Japanese Conversation Practice To Start The Day\",\n    \"videoUrl\" : \"https://www.youtube.com/watch?v=hVOvyR3fSrU\",\n    \"description\" : \"Easy way to learn and talk Japanese language\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/vocabulary/single-vocabulary/:_id",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"vocabulary",
+								"single-vocabulary",
+								":_id"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "675a0c19cd8879bde097d062"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vocabulary",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"word\" : \"こんにちは\",\n    \"meaning\" : \"Hello\",\n    \"pronunciation\" : \"Konnichiwa\",\n    \"whenToSay\" : \"Used for greeting\",\n    \"lesson\" : \"6759d595882b05a8e989bc3f\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/vocabulary/create-vocabulary",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"vocabulary",
+								"create-vocabulary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Vocabulary",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"word\" : \"こんにちは\",\n    \"meaning\" : \"Hello 2\",\n    \"pronunciation\" : \"Konnichiwa\",\n    \"whenToSay\" : \"Used for greeting\",\n    \"lesson\" : \"675a216e5d2b773802ad26c2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/vocabulary//update-vocabulary/:_id",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"vocabulary",
+								"",
+								"update-vocabulary",
+								":_id"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "675a208c6367e86fe8ffb6a3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Vocabulary",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/vocabulary//delete-vocabulary/:_id",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"vocabulary",
+								"",
+								"delete-vocabulary",
+								":_id"
+							],
+							"variable": [
+								{
+									"key": "_id",
+									"value": "675a1f2563b0172a2ce1e1e5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local_url",
+			"value": "http://localhost:4000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "user_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzU5ZDI1OGU3ZWE1YmUxY2M3ODFiZDkiLCJyb2xlIjoidXNlciIsImlhdCI6MTczMzk0MDMxNywiZXhwIjoxNzM2NTMyMzE3fQ.xqmpx3lk8GLYrxQrvJJ1eUf8PUaEAA4YGCyOYxrK6QM",
+			"type": "string"
+		},
+		{
+			"key": "admin_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzU5ZDU5NTg4MmIwNWE4ZTk4OWJjM2YiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzM5NDY3OTIsImV4cCI6MTczNjUzODc5Mn0.vIqSf7S4mvy2OiI4wxmQmN9WpZeoNr2TCS6oTQRXAPs",
+			"type": "string"
+		}
+	]
+}

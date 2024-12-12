@@ -1,18 +1,35 @@
-# CampBuddy - Server
+# Learn Japanese : A Fun and Interactive Vocabulary Learning App
 
-The CampBuddy Server is a comprehensive application designed to facilitate the efficient management of room rentals. Developed using modern technologies, it offers robust features for both users and administrators. Key functionalities include:
+## Introduction
 
-- Secure login and signup system.
-- User management system with capabilities for creating, updating, and managing user profiles.
-- Room management system that allows for adding new create new room and updating their status (available or unavailable). Unavailable room cannot - be booked.
-- User room booking system to book available room.
-- Admin booking management system for overseeing all bookings.
-- Booking room check-in,check-out,cancelling system to handle the complete process seamlessly.
-- Total cost calculation system that calculates booking costs based on check-in and check-out times, including day differences.
-- Admin all room booking price management system to manage pricing effectively.
-- Clean and well-structured code with comprehensive error handling for a smooth user experience.
+This application helps you embark on a journey of learning Japanese vocabulary in an engaging and interactive way. It features user-friendly interfaces for both users and admins, promoting a streamlined learning experience.
 
-## Project Setup
+## Key Features:
+
+### Users:
+
+- Access and navigate through various Japanese lessons.
+- View detailed information for each vocabulary word (word, pronunciation, meaning, usage examples).
+- Learn pronunciation with audio playback for each word.
+- Seamlessly track progress through lessons with intuitive navigation buttons.
+- Celebrate completion of a lesson with a fun completion animation.
+- Explore additional learning resources through embedded YouTube tutorials on the Tutorials page.
+
+### Admins:
+
+- Manage system operations from a dedicated dashboard.
+- Create, edit, and delete lessons and vocabulary entries.
+- Assign and manage user roles (Admin or User).
+- Filter vocabulary entries by lesson number for efficient management.
+- Manage all tutorials within the system
+
+### Technologies Used::
+
+- Front-end: TypeScript, Next.js, Redux, ShadCn, Tailwind Css
+- Back-end: Node.js (Express.js), Mongoose, Zod, Multer, Argon2, Cloudinary, Jwt.
+- Database: MongoDB
+
+## Installation and Setup
 
 ### Prerequisites
 
@@ -25,30 +42,26 @@ The CampBuddy Server is a comprehensive application designed to facilitate the e
 1. **Clone the repository:**
 
    ```sh
-   git clone https://github.com/jishan1019/CampBuddy.git
-   cd CampBuddy
+   git clone https://github.com/jishan1019/Learn-Japanese-Backend.git
+   cd learn-japanese
    ```
 
 2. **Install Necessary Dependency via command**
 
    ```
-   pnpm
+   pnpm install or
+   npm install or
+   yarn
    ```
 
 3. **Run Project via below command**
 
    ```
    pnpm start:dev
+
    Project Running Port : http://localhost:4000
    ```
 
 ```
-
-4. **API DOC**
-
-```
-local base_url:http://localhost:4000
-
- 1. Api Doc: http://localhost:4000/api-doc/
 
 ```
