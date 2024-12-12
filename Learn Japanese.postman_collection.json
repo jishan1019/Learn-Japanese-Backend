@@ -224,9 +224,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{local_url}}/auth/sign-in",
+							"raw": "{{prod_url}}/auth/sign-in",
 							"host": [
-								"{{local_url}}"
+								"{{prod_url}}"
 							],
 							"path": [
 								"auth",
@@ -1022,6 +1022,11 @@
 		{
 			"key": "admin_token",
 			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzU5ZDU5NTg4MmIwNWE4ZTk4OWJjM2YiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzM5NDY3OTIsImV4cCI6MTczNjUzODc5Mn0.vIqSf7S4mvy2OiI4wxmQmN9WpZeoNr2TCS6oTQRXAPs",
+			"type": "string"
+		},
+		{
+			"key": "prod_url",
+			"value": "https://word-orbit-backend.vercel.app/api/v1",
 			"type": "string"
 		}
 	]

@@ -4,6 +4,7 @@ import { AuthRoutes } from "../modules/Auth/auth.route";
 import { TutorialRoutes } from "../modules/Tutorial/tutorial.route";
 import { LessonRoutes } from "../modules/Lesson/lesson.route";
 import { VocabularyRoutes } from "../modules/Vocabulary/vocabulary.route";
+import { DashboardRoutes } from "../modules/Dashboard/dashboard.route";
 
 const router = Router();
 
@@ -27,6 +28,14 @@ const moduleRoutes = [
   {
     path: "/vocabulary",
     route: VocabularyRoutes,
+  },
+  {
+    path: "/vocabulary",
+    route: VocabularyRoutes,
+  },
+  {
+    path: "/dashboard",
+    route: DashboardRoutes,
   },
 ];
 
