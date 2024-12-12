@@ -4,7 +4,7 @@ import cors from "cors";
 import router from "./app/routes";
 import notFound from "./app/middlewares/notFound";
 import globalErrorHandler from "./app/middlewares/globalErrorHandler";
-
+import config from "./app/config";
 
 const app = express();
 
@@ -12,8 +12,13 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.text());
-app.use(cors());
 
+app.use(
+  cors({
+    origin: config.cors_all_origin_url,
+    credentials: true,
+  })
+);
 
 //Application Routes
 app.use("/api/v1", router);

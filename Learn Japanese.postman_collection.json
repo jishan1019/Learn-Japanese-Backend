@@ -984,6 +984,39 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "Get Dashboard Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/dashboard/all-dashboard-info",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"dashboard",
+								"all-dashboard-info"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

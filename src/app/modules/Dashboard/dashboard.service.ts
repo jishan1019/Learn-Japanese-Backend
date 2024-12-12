@@ -1,6 +1,3 @@
-import httpStatus from "http-status";
-import QueryBuilder from "../../builder/QueryBuilder";
-import AppError from "../../errors/AppError";
 import { UserModel } from "../User/user.model";
 import { LessonModel } from "../Lesson/lesson.model";
 import { VocabularyModel } from "../Vocabulary/vocabulary.model";

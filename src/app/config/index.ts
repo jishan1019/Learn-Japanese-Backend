@@ -7,6 +7,7 @@ export default {
   node_env: process.env.NODE_ENV,
   port: process.env.PORT || 4000,
   database_url: process.env.DATABASE_URL,
+  cors_all_origin_url: process.env.CORS_ALL_ORIGIN_URL?.split(","),
 
   jwt: {
     jwt_access_secret: process.env.JWT_ACCESS_SECRET,
